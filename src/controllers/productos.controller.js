@@ -3,6 +3,7 @@ import { pool } from '../db.js';
 export const getProducts = async (req, res) => {
     try{
       const [rows] = await pool.query('SELECT * FROM productos')
+      res.send(rows)
     }catch(error){
        return res.error(500).json({
           message: "Something goes wrong"
@@ -12,7 +13,7 @@ export const getProducts = async (req, res) => {
 
 export const getProduct = async (req, res) => {
     try {
-      const [rows] = await pool.query('SELECT * FROM Productos WHERE id = ?', [req.params.id])
+      const [rows] = await pool.query('SELECT * FROM productos WHERE id = ?', [req.params.id])
       if(rows.length <= 0) return res.status(404).json ({
         message: 'Usuario no encontrado'
       })
